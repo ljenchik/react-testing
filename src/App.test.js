@@ -1,38 +1,36 @@
 /** @jest-environment jsdom */
-import React from 'react';
-import '@testing-library/jest-dom';
-import { render, screen, fireEvent } from '@testing-library/react';
-import { App } from './App';
+import React from "react";
+import "@testing-library/jest-dom";
+import { render, screen, fireEvent } from "@testing-library/react";
+import { App } from "./App";
 
 /**
  * Verify something should render
  */
-test('App should render', () => {
-  render(<App />);
-
-  expect(screen.getByText('Welcome, party people!')).toBeInTheDocument();
+test("App should render", () => {
+    render(<App />);
+    expect(screen.getByText("Welcome, party people!")).toBeInTheDocument();
 });
 
-test('Button should render', () => {
-  // TODO: change the expect to actually test something 😉
-  expect('no test written').toBe('tested');
+test("Button should render", () => {
+    render(<App />);
+    const one_button = screen.getAllByRole("button")[0];
+    expect(one_button).toBeInTheDocument();
 });
 
-/**
- * Verify clicking button should change theme
- * hint: use fireEvent.click(element) to trigger a click event on an element
- */
-test('theme button should update button text', () => {
-  // TODO: change the expect to actually test something 😉
-  expect('no test written').toBe('tested');
+test("theme button should update button text", () => {
+    render(<App />);
+    const one_button = screen.getAllByRole("button")[0];
+    fireEvent.click(one_button);
+    expect(screen.getByText("Current theme: dark")).toBeInTheDocument();
 });
 
-// BONUS
-// hint: there is a `.toHaveStyle` method.
-// e.g.: expect(element).toHaveStyle('color: #FFF');
-test('theme button should toggle styles', () => {
-  // TODO: change the expect to actually test something 😉
-  expect('no test written').toBe('tested');
+test("theme button should toggle styles", () => {
+    render(<App />);
+    const one_button = screen.getAllByRole("button")[0];
+    fireEvent.click(one_button);
+    const element = window.document.body;
+    expect(element).toHaveStyle("color: #FFF");
 });
 
 /**
@@ -44,11 +42,12 @@ test('theme button should toggle styles', () => {
  * hint: use `queryByText` instead of `getByText` to check if something is _not_ rendered
  * (getByText will throw an error if it is not rendered)
  */
-test('hidden button should toggle hidden content', () => {
-  // TODO: change the expect to actually test something 😉
-  expect('no test written').toBe('tested');
+test("hidden button should toggle hidden content", () => {
+    render(<App />);
+    const one_button = screen.getAllByRole("button")[1];
+    const element = screen.queryByText("this content is hidden by default");
+    expect(element).not.toBeInTheDocument();
 });
-
 
 /**
  * Want more? Try these:
